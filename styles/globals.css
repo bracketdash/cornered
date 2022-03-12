@@ -2,15 +2,133 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: sans-serif;
 }
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
 * {
   box-sizing: border-box;
+}
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  padding: 2vw;
+}
+.left {
+  color: #57f;
+}
+.right {
+  color: #f74;
+}
+.board {
+  --board-border-color: #333;
+  border-right: 1px solid var(--board-border-color);
+  border-top: 1px solid var(--board-border-color);
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+}
+.board > div {
+  border-bottom: 1px solid var(--board-border-color);
+  border-left: 1px solid var(--board-border-color);
+  height: 8vw;
+  width: 8vw;
+  position: relative;
+}
+.square {
+  font-size: 3vw;
+  line-height: 8vw;
+  text-align: center;
+  cursor: default;
+}
+.board > div .up,
+.board > div .right,
+.board > div .down,
+.board > div .left {
+  display: none;
+}
+.board > div.hoverable:hover .up,
+.board > div.hoverable:hover .right,
+.board > div.hoverable:hover .down,
+.board > div.hoverable:hover .left {
+  cursor: pointer;
+  display: block;
+  position: absolute;
+  opacity: 0.6;
+}
+.board > div.hoverable:hover .up:hover,
+.board > div.hoverable:hover .right:hover,
+.board > div.hoverable:hover .down:hover,
+.board > div.hoverable:hover .left:hover {
+  opacity: 1;
+}
+.board > div.hoverable:hover .right,
+.board > div.hoverable:hover .left {
+  top: calc(50% - 1.5vw);
+}
+.board > div.hoverable:hover .up,
+.board > div.hoverable:hover .down {
+  left: calc(50% - 1.5vw);
+}
+.board > div.hoverable:hover .right {
+  right: 0.5vw;
+  border-left: 1.5vw solid #333;
+  border-top: 1.5vw solid transparent;
+  border-bottom: 1.5vw solid transparent;
+}
+.board > div.hoverable:hover .left {
+  left: 0.5vw;
+  border-right: 1.5vw solid #333;
+  border-top: 1.5vw solid transparent;
+  border-bottom: 1.5vw solid transparent;
+}
+.board > div.hoverable:hover .up {
+  top: 0.5vw;
+  border-bottom: 1.5vw solid #333;
+  border-left: 1.5vw solid transparent;
+  border-right: 1.5vw solid transparent;
+}
+.board > div.hoverable:hover .down {
+  bottom: 0.5vw;
+  border-top: 1.5vw solid #333;
+  border-left: 1.5vw solid transparent;
+  border-right: 1.5vw solid transparent;
+}
+.footer {
+  display: flex;
+  width: 64vw;
+  padding: 2vw 0;
+}
+.checkers-left {
+  flex-grow: 1;
+  font-size: 2vw;
+  line-height: 4vw;
+  text-align: center;
+}
+.switch {
+  cursor: pointer;
+  font-size: 2vw;
+  line-height: 4vw;
+  background-color: #333;
+  padding: 0 2vw;
+  color: #fff;
+  position: relative;
+}
+.switch.blue:after,
+.switch.orange:after {
+  content: "";
+  position: absolute;
+  top: 0;
+}
+.switch.blue:after {
+  left: -2vw;
+  border-bottom: 2vw solid transparent;
+  border-top: 2vw solid transparent;
+  border-right: 2vw solid #333;
+}
+.switch.orange:after {
+  right: -2vw;
+  border-bottom: 2vw solid transparent;
+  border-top: 2vw solid transparent;
+  border-left: 2vw solid #333;
 }
