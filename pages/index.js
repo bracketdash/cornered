@@ -13,10 +13,10 @@ export default function Home() {
           owner: "",
         }))
     );
-  boardArr[0][0].checkers = 4;
-  boardArr[0][0].owner = "left";
-  boardArr[7][7].checkers = 4;
-  boardArr[7][7].owner = "right";
+  boardArr[2][2].checkers = 4;
+  boardArr[2][2].owner = "left";
+  boardArr[5][5].checkers = 4;
+  boardArr[5][5].owner = "right";
 
   // set up our template variables
   const [board, setBoard] = useState(boardArr);
@@ -133,15 +133,15 @@ export default function Home() {
       (whoseTurn === "right" && qualifyingSquares.length <= leftCheckers) ||
       (whoseTurn === "left" && qualifyingSquares.length <= rightCheckers)
     ) {
+      if (whoseTurn === "right") {
+        setLeftCheckers(leftCheckers - qualifyingSquares.length);
+      } else {
+        setRightCheckers(rightCheckers - qualifyingSquares.length);
+      }
       setBoard((state) =>
         state.map((columns, ri) =>
           columns.map((square, ci) => {
             if (qualifyingSquares.some((rc) => rc[0] === ri && rc[1] === ci)) {
-              if (whoseTurn === "right") {
-                setLeftCheckers(leftCheckers - 1);
-              } else {
-                setRightCheckers(rightCheckers - 1);
-              }
               return {
                 checkers: square.checkers + 1,
                 owner: square.owner,

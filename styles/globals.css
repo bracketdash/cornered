@@ -32,19 +32,20 @@ body {
   border-bottom: 1px solid var(--board-border-color);
   border-left: 1px solid var(--board-border-color);
   height: 8vw;
+  max-height: 8vh;
   width: 8vw;
   position: relative;
 }
-.board > div:first-child,
-.board > div:last-child {
+.board > div:nth-child(19),
+.board > div:nth-child(46) {
   border-top: 1px solid #000;
   border-right: 1px solid #000;
   border-bottom: 2px solid #000;
   border-left: 2px solid #000;
 }
 .square {
-  font-size: 3vw;
-  line-height: 8vw;
+  font-size: 3.5vh;
+  line-height: min(8vh, 8vw);
   text-align: center;
   cursor: default;
 }
