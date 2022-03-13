@@ -114,9 +114,23 @@ export default function Home() {
 
   // handle switching players
   const switchPlayerTo = (which) => {
-    // TODO: make an array of references to qualifying squares
-    // TODO: automatically add one to each qualifying square if we have enough
-    // TODO: if we don't have enough, let the player choose which squares
+    const qualifyingSquares = [];
+    board.forEach((columns, ri) => {
+      columns.forEach((square, ci) => {
+        if (square.owner !== whoseTurn && square.checkers < 4) {
+          // TODO: && if it is contiguous with their starting corner
+          qualifyingSquares.push([ri, ci]);
+        }
+      });
+    });
+    if (
+      (whoseTurn === "right" && qualifyingSquares.length <= leftCheckers) ||
+      (whoseTurn === "left" && qualifyingSquares.length <= rightCheckers)
+    ) {
+      // TODO: automatically add one to each qualifying square if we have enough
+    } else {
+      // TODO: if we don't have enough, let the player choose which squares
+    }
     setMovesThisTurn(
       Array(8)
         .fill(1)
