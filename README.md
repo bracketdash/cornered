@@ -17,14 +17,14 @@ npm run dev
 
 ### During Your Turn
 
-1. If you have checkers outside the board, add one checker of your color to each of your stacks with fewer than 4 checkers that are contiguous with your starting space.
+1. If you have checkers outside the board, add one of your checkers to each of your stacks with fewer than 4 checkers that are contiguous with your starting corner.
 
    - If you have more applicable stacks than checkers outside the board, you may select which of your stacks get checkers added.
 
-2. Take as many actions as you wish, in any order:
+2. Take as many actions as you wish/can, in any order:
 
    - Move a checker that has not yet moved during this turn to an adjacent empty space or another of your stacks with fewer than 4 checkers.
-   - Attack an opponent’s stack from an adjacent stack of yours. Flip a coin:
+   - Attack an opponent’s stack from an adjacent stack of yours: Flip a coin...
      - If heads, remove a checker from your opponent’s stack.
      - If tails, remove a checker from your own stack.
 
