@@ -11,8 +11,9 @@ npm run dev
 
 ### Game Setup
 
-- Each player places a stack of 4 of their checkers in opposing corners.
-- Flip a coin to determine who goes first.
+1. Each player starts with 24 checkers, so in this verson that's 24 blue and 24 orange checkers.
+2. Each player places a stack of 4 of their checkers in opposing corners, and should have 20 left outside the board.
+3. Flip a coin to determine who goes first, then alternate turns until there is a winner.
 
 ### During Your Turn
 
