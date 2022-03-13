@@ -35,6 +35,13 @@ body {
   width: 8vw;
   position: relative;
 }
+.board > div:first-child,
+.board > div:last-child {
+  border-top: 1px solid #000;
+  border-right: 1px solid #000;
+  border-bottom: 2px solid #000;
+  border-left: 2px solid #000;
+}
 .square {
   font-size: 3vw;
   line-height: 8vw;

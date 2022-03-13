@@ -24,11 +24,11 @@ export default function Home() {
   const [rightCheckers, setRightCheckers] = useState(20);
   const [whoseTurn, setWhoseTurn] = useState("left");
 
-  // handle move/attack
+  // handle moving and attacking
   const move = (row, column, rowDelta, columnDelta) => {
     // TODO: prevent the same checker from being moved twice in the same turn
     const target = board[row + rowDelta][column + columnDelta];
-    if (!target.owner) {
+    if (target.checkers < 4 && (!target.owner || target.owner === whoseTurn)) {
       setBoard((state) =>
         state.map((columns, ri) =>
           columns.map((square, ci) => {
@@ -47,36 +47,56 @@ export default function Home() {
           })
         )
       );
-    } else if (target.owner === whoseTurn) {
-      if (target.checkers < 4) {
+    } else if (!!target.owner && target.owner !== whoseTurn) {
+      if (!Math.floor(Math.random() * 2)) {
+        // target loses one
+        if (whoseTurn === "left") {
+          setRightCheckers(rightCheckers + 1);
+        } else {
+          setLeftCheckers(leftCheckers + 1);
+        }
         setBoard((state) =>
           state.map((columns, ri) =>
             columns.map((square, ci) => {
-              // if (ri === row + rowDelta && ci === column + columnDelta) {
-              //   return {
-              //     checkers: square.checkers + 1,
-              //     owner: whoseTurn,
-              //   };
-              // } else if (ri === row && ci === column) {
-              //   return {
-              //     checkers: square.checkers - 1,
-              //     owner: square.checkers === 1 ? "" : whoseTurn,
-              //   };
-              // }
+              if (ri === row + rowDelta && ci === column + columnDelta) {
+                return {
+                  checkers: square.checkers - 1,
+                  owner: square.checkers === 1 ? "" : square.owner,
+                };
+              }
               return { ...square };
             })
           )
         );
       } else {
-        alert("That square already has the maximum 4 checkers.");
+        // origin loses one
+        if (whoseTurn === "left") {
+          setLeftCheckers(leftCheckers + 1);
+        } else {
+          setRightCheckers(rightCheckers + 1);
+        }
+        setBoard((state) =>
+          state.map((columns, ri) =>
+            columns.map((square, ci) => {
+              if (ri === row && ci === column) {
+                return {
+                  checkers: square.checkers - 1,
+                  owner: square.checkers === 1 ? "" : whoseTurn,
+                };
+              }
+              return { ...square };
+            })
+          )
+        );
       }
     }
-    // TODO: handle attacking
   };
 
   // handle switch player
   const switchPlayerTo = (which) => {
-    // TODO: handle reinforcements
+    // TODO: make an array of references to qualifying squares
+    // TODO: automatically add one to each qualifying square if we have enough
+    // TODO: if we don't have enough, let the player choose which squares
     setWhoseTurn(which);
   };
 
