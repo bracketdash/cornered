@@ -23,12 +23,31 @@ export default function Home() {
   const [leftCheckers, setLeftCheckers] = useState(20);
   const [rightCheckers, setRightCheckers] = useState(20);
   const [whoseTurn, setWhoseTurn] = useState("left");
+  const [movesThisTurn, setMovesThisTurn] = useState(
+    Array(8)
+      .fill(1)
+      .map(() => Array(8).fill(0))
+  );
 
   // handle moving and attacking
   const move = (row, column, rowDelta, columnDelta) => {
-    // TODO: prevent the same checker from being moved twice in the same turn
     const target = board[row + rowDelta][column + columnDelta];
-    if (target.checkers < 4 && (!target.owner || target.owner === whoseTurn)) {
+    if (
+      target.checkers < 4 &&
+      (!target.owner || target.owner === whoseTurn) &&
+      board[row][column].checkers - movesThisTurn[row][column] > 0
+    ) {
+      // just movin' pieces
+      setMovesThisTurn((state) =>
+        state.map((columns, ri) =>
+          columns.map((moves, ci) => {
+            if (ri === row + rowDelta && ci === column + columnDelta) {
+              return moves + 1;
+            }
+            return moves;
+          })
+        )
+      );
       setBoard((state) =>
         state.map((columns, ri) =>
           columns.map((square, ci) => {
@@ -48,6 +67,7 @@ export default function Home() {
         )
       );
     } else if (!!target.owner && target.owner !== whoseTurn) {
+      // we're attacking!
       if (!Math.floor(Math.random() * 2)) {
         // target loses one
         if (whoseTurn === "left") {
@@ -92,11 +112,16 @@ export default function Home() {
     }
   };
 
-  // handle switch player
+  // handle switching players
   const switchPlayerTo = (which) => {
     // TODO: make an array of references to qualifying squares
     // TODO: automatically add one to each qualifying square if we have enough
     // TODO: if we don't have enough, let the player choose which squares
+    setMovesThisTurn(
+      Array(8)
+        .fill(1)
+        .map(() => Array(8).fill(0))
+    );
     setWhoseTurn(which);
   };
 
