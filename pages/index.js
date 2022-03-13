@@ -38,7 +38,7 @@ export default function Home() {
       board[row][column].checkers - movesThisTurn[row][column] > 0
     ) {
       // just movin' pieces
-      // TODO: don't let them move the last checker from their starting corner
+      // TODO: don't let them move the last checker from their starting space
       setMovesThisTurn((state) =>
         state.map((columns, ri) =>
           columns.map((moves, ci) => {
