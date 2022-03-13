@@ -38,6 +38,7 @@ export default function Home() {
       board[row][column].checkers - movesThisTurn[row][column] > 0
     ) {
       // just movin' pieces
+      // TODO: don't let them move the last checker from their starting corner
       setMovesThisTurn((state) =>
         state.map((columns, ri) =>
           columns.map((moves, ci) => {
@@ -117,17 +118,39 @@ export default function Home() {
     const qualifyingSquares = [];
     board.forEach((columns, ri) => {
       columns.forEach((square, ci) => {
-        if (square.owner !== whoseTurn && square.checkers < 4) {
+        if (
+          !!square.owner &&
+          square.owner !== whoseTurn &&
+          square.checkers < 4
+        ) {
           // TODO: && if it is contiguous with their starting corner
           qualifyingSquares.push([ri, ci]);
         }
       });
     });
+    console.log(qualifyingSquares);
     if (
       (whoseTurn === "right" && qualifyingSquares.length <= leftCheckers) ||
       (whoseTurn === "left" && qualifyingSquares.length <= rightCheckers)
     ) {
-      // TODO: automatically add one to each qualifying square if we have enough
+      setBoard((state) =>
+        state.map((columns, ri) =>
+          columns.map((square, ci) => {
+            if (qualifyingSquares.some((rc) => rc[0] === ri && rc[1] === ci)) {
+              if (whoseTurn === "right") {
+                setLeftCheckers(leftCheckers - 1);
+              } else {
+                setRightCheckers(rightCheckers - 1);
+              }
+              return {
+                checkers: square.checkers + 1,
+                owner: square.owner,
+              };
+            }
+            return { ...square };
+          })
+        )
+      );
     } else {
       // TODO: if we don't have enough, let the player choose which squares
     }
