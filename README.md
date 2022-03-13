@@ -1,34 +1,32 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Cornered!
 
-## Getting Started
-
-First, run the development server:
+This is a game that can be played with ordinary checkers on a checkerboard, but here's a digital version.
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Rules
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### Game Setup
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+- Each player places a stack of 4 of their checkers in opposing corners.
+- Flip a coin to determine who goes first.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### During Your Turn
 
-## Learn More
+1. If you have checkers outside the board, add one checker of your color to each of your stacks with fewer than 4 checkers that are contiguous with your starting space.
 
-To learn more about Next.js, take a look at the following resources:
+   - If you have more applicable stacks than checkers outside the board, you may select which of your stacks get checkers added.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Take as many actions as you wish, in any order:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+   - Move a checker that has not yet moved during this turn to an adjacent empty space or another of your stacks with fewer than 4 checkers.
+   - Attack an opponent’s stack from an adjacent stack of yours. Flip a coin:
+     - If heads, remove a checker from your opponent’s stack.
+     - If tails, remove a checker from your own stack.
 
-## Deploy on Vercel
+### Winning The Game
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The last player to maintain at least one of their checkers on their starting space wins.
