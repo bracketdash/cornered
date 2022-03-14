@@ -35,10 +35,14 @@ export default function Home() {
     if (
       target.checkers < 4 &&
       (!target.owner || target.owner === whoseTurn) &&
-      board[row][column].checkers - movesThisTurn[row][column] > 0
+      board[row][column].checkers - movesThisTurn[row][column] > 0 &&
+      !(
+        board[row][column].checkers === 1 &&
+        ((whoseTurn === "left" && row === 2 && column === 2) ||
+          (whoseTurn === "right" && row === 5 && column === 5))
+      )
     ) {
       // just movin' pieces
-      // TODO: don't let them move the last checker from their starting space
       setMovesThisTurn((state) =>
         state.map((columns, ri) =>
           columns.map((moves, ci) => {
