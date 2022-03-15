@@ -118,47 +118,49 @@ export default function Home() {
   };
 
   // handle switching players
-  const contiguousLoop = (ri, ci, resolve, checked) => {
+  const contiguousLoop = (ri, ci, resolve, checked, whoseComingUp) => {
     checked.push(`${ri}${ci}`);
     if (
-      (whoseTurn === "left" && ri === 2 && ci === 2) ||
-      (whoseTurn === "right" && ri === 5 && ci === 5)
+      (whoseComingUp === "left" && ri === 2 && ci === 2) ||
+      (whoseComingUp === "right" && ri === 5 && ci === 5)
     ) {
-      console.log("Found the capital!");
       resolve(true);
+      return;
     }
     if (
       !checked.includes(`${ri - 1}${ci}`) &&
       ri !== 0 &&
-      board[ri - 1][ci].owner === whoseTurn
+      board[ri - 1][ci].owner === whoseComingUp
     ) {
-      contiguousLoop(ri - 1, ci, resolve, checked);
+      contiguousLoop(ri - 1, ci, resolve, checked, whoseComingUp);
     }
     if (
       !checked.includes(`${ri}${ci + 1}`) &&
       ci !== 7 &&
-      board[ri][ci + 1].owner === whoseTurn
+      board[ri][ci + 1].owner === whoseComingUp
     ) {
-      contiguousLoop(ri, ci + 1, resolve, checked);
+      contiguousLoop(ri, ci + 1, resolve, checked, whoseComingUp);
     }
     if (
       !checked.includes(`${ri + 1}${ci}`) &&
       ri !== 7 &&
-      board[ri + 1][ci].owner === whoseTurn
+      board[ri + 1][ci].owner === whoseComingUp
     ) {
-      contiguousLoop(ri + 1, ci, resolve, checked);
+      contiguousLoop(ri + 1, ci, resolve, checked, whoseComingUp);
     }
     if (
       !checked.includes(`${ri}${ci - 1}`) &&
       ci !== 0 &&
-      board[ri][ci - 1].owner === whoseTurn
+      board[ri][ci - 1].owner === whoseComingUp
     ) {
-      contiguousLoop(ri, ci - 1, resolve, checked);
+      contiguousLoop(ri, ci - 1, resolve, checked, whoseComingUp);
     }
   };
   const isContiguous = (ri, ci) => {
+    const whoseComingUp = whoseTurn === "right" ? "left" : "right";
     return new Promise((resolve) => {
-      contiguousLoop(ri, ci, resolve, []);
+      contiguousLoop(ri, ci, resolve, [], whoseComingUp);
+      resolve(false);
     });
   };
   const switchPlayerTo = (which) => {
@@ -174,41 +176,44 @@ export default function Home() {
         }
       });
     });
-    // TODO: remove square that aren't contiguous
-    // promise.all(qualifyingSquares.map())
-    // isContiguous(ri, ci).then(() => {})
-    console.log(qualifyingSquares);
-    if (
-      (whoseTurn === "right" && qualifyingSquares.length <= leftCheckers) ||
-      (whoseTurn === "left" && qualifyingSquares.length <= rightCheckers)
-    ) {
-      if (whoseTurn === "right") {
-        setLeftCheckers(leftCheckers - qualifyingSquares.length);
-      } else {
-        setRightCheckers(rightCheckers - qualifyingSquares.length);
+    Promise.all(qualifyingSquares.map((s) => isContiguous(s[0], s[1]))).then(
+      (results) => {
+        qualifyingSquares = qualifyingSquares.filter((_, i) => results[i]);
+        if (
+          (whoseTurn === "right" && qualifyingSquares.length <= leftCheckers) ||
+          (whoseTurn === "left" && qualifyingSquares.length <= rightCheckers)
+        ) {
+          if (whoseTurn === "right") {
+            setLeftCheckers(leftCheckers - qualifyingSquares.length);
+          } else {
+            setRightCheckers(rightCheckers - qualifyingSquares.length);
+          }
+          setBoard((state) =>
+            state.map((columns, ri) =>
+              columns.map((square, ci) => {
+                if (
+                  qualifyingSquares.some((rc) => rc[0] === ri && rc[1] === ci)
+                ) {
+                  return {
+                    checkers: square.checkers + 1,
+                    owner: square.owner,
+                  };
+                }
+                return { ...square };
+              })
+            )
+          );
+        } else {
+          // TODO: if we don't have enough, let the player choose which squares
+        }
+        setMovesThisTurn(
+          Array(8)
+            .fill(1)
+            .map(() => Array(8).fill(0))
+        );
+        setWhoseTurn(which);
       }
-      setBoard((state) =>
-        state.map((columns, ri) =>
-          columns.map((square, ci) => {
-            if (qualifyingSquares.some((rc) => rc[0] === ri && rc[1] === ci)) {
-              return {
-                checkers: square.checkers + 1,
-                owner: square.owner,
-              };
-            }
-            return { ...square };
-          })
-        )
-      );
-    } else {
-      // TODO: if we don't have enough, let the player choose which squares
-    }
-    setMovesThisTurn(
-      Array(8)
-        .fill(1)
-        .map(() => Array(8).fill(0))
     );
-    setWhoseTurn(which);
   };
 
   // the template
