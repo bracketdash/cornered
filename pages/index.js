@@ -118,49 +118,65 @@ export default function Home() {
   };
 
   // handle switching players
-  const isContiguous = (ri, ci, from) => {
+  const contiguousLoop = (ri, ci, resolve, checked) => {
+    checked.push(`${ri}${ci}`);
     if (
       (whoseTurn === "left" && ri === 2 && ci === 2) ||
       (whoseTurn === "right" && ri === 5 && ci === 5)
     ) {
-      return true;
+      console.log("Found the capital!");
+      resolve(true);
     }
-    if (from !== "above" && ri !== 0 && board[ri - 1][ci].owner === whoseTurn) {
-      return isContiguous(ri - 1, ci, "below");
-    } else if (
-      from !== "right" &&
-      ci !== 8 &&
+    if (
+      !checked.includes(`${ri - 1}${ci}`) &&
+      ri !== 0 &&
+      board[ri - 1][ci].owner === whoseTurn
+    ) {
+      contiguousLoop(ri - 1, ci, resolve, checked);
+    }
+    if (
+      !checked.includes(`${ri}${ci + 1}`) &&
+      ci !== 7 &&
       board[ri][ci + 1].owner === whoseTurn
     ) {
-      return isContiguous(ri, ci + 1, "left");
-    } else if (
-      from !== "below" &&
-      ri !== 8 &&
+      contiguousLoop(ri, ci + 1, resolve, checked);
+    }
+    if (
+      !checked.includes(`${ri + 1}${ci}`) &&
+      ri !== 7 &&
       board[ri + 1][ci].owner === whoseTurn
     ) {
-      return isContiguous(ri + 1, ci, "above");
-    } else if (
-      from !== "left" &&
+      contiguousLoop(ri + 1, ci, resolve, checked);
+    }
+    if (
+      !checked.includes(`${ri}${ci - 1}`) &&
       ci !== 0 &&
       board[ri][ci - 1].owner === whoseTurn
     ) {
-      return isContiguous(ri, ci - 1, "right");
+      contiguousLoop(ri, ci - 1, resolve, checked);
     }
   };
+  const isContiguous = (ri, ci) => {
+    return new Promise((resolve) => {
+      contiguousLoop(ri, ci, resolve, []);
+    });
+  };
   const switchPlayerTo = (which) => {
-    const qualifyingSquares = [];
+    let qualifyingSquares = [];
     board.forEach((columns, ri) => {
       columns.forEach((square, ci) => {
         if (
           !!square.owner &&
           square.owner !== whoseTurn &&
-          square.checkers < 4 &&
-          isContiguous(ri, ci)
+          square.checkers < 4
         ) {
           qualifyingSquares.push([ri, ci]);
         }
       });
     });
+    // TODO: remove square that aren't contiguous
+    // promise.all(qualifyingSquares.map())
+    // isContiguous(ri, ci).then(() => {})
     console.log(qualifyingSquares);
     if (
       (whoseTurn === "right" && qualifyingSquares.length <= leftCheckers) ||
