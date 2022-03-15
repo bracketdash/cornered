@@ -118,6 +118,21 @@ export default function Home() {
   };
 
   // handle switching players
+  const isContiguous = (ri, ci, from) => {
+    if (from !== "above" && ri !== 0 && board[ri - 1][ci].owner === whoseTurn) {
+      // TODO: if [ri-1][ci] is whoseTurn's capital, return true
+      // TODO: if not, return isContiguous(ri-1, ci, "below")
+    } else if (from !== "right" && ci !== 8) {
+      // TODO: if [ri][ci+1] is whoseTurn's capital, return true
+      // TODO: if not, return isContiguous(ri, ci+1, "left")
+    } else if (from !== "below" && ri !== 8) {
+      // TODO: if [ri+1][ci] is whoseTurn's capital, return true
+      // TODO: if not, return isContiguous(ri+1, ci, "above")
+    } else if (from !== "left" && ci !== 0) {
+      // TODO: if [ri][ci-1] is whoseTurn's capital, return true
+      // TODO: if not, return isContiguous(ri+1, ci, "above")
+    }
+  };
   const switchPlayerTo = (which) => {
     const qualifyingSquares = [];
     board.forEach((columns, ri) => {
@@ -125,9 +140,9 @@ export default function Home() {
         if (
           !!square.owner &&
           square.owner !== whoseTurn &&
-          square.checkers < 4
+          square.checkers < 4 &&
+          isContiguous(ri, ci)
         ) {
-          // TODO: && if it is contiguous with their starting corner
           qualifyingSquares.push([ri, ci]);
         }
       });
