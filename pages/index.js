@@ -119,18 +119,32 @@ export default function Home() {
 
   // handle switching players
   const isContiguous = (ri, ci, from) => {
+    if (
+      (whoseTurn === "left" && ri === 2 && ci === 2) ||
+      (whoseTurn === "right" && ri === 5 && ci === 5)
+    ) {
+      return true;
+    }
     if (from !== "above" && ri !== 0 && board[ri - 1][ci].owner === whoseTurn) {
-      // TODO: if [ri-1][ci] is whoseTurn's capital, return true
-      // TODO: if not, return isContiguous(ri-1, ci, "below")
-    } else if (from !== "right" && ci !== 8) {
-      // TODO: if [ri][ci+1] is whoseTurn's capital, return true
-      // TODO: if not, return isContiguous(ri, ci+1, "left")
-    } else if (from !== "below" && ri !== 8) {
-      // TODO: if [ri+1][ci] is whoseTurn's capital, return true
-      // TODO: if not, return isContiguous(ri+1, ci, "above")
-    } else if (from !== "left" && ci !== 0) {
-      // TODO: if [ri][ci-1] is whoseTurn's capital, return true
-      // TODO: if not, return isContiguous(ri+1, ci, "above")
+      return isContiguous(ri - 1, ci, "below");
+    } else if (
+      from !== "right" &&
+      ci !== 8 &&
+      board[ri][ci + 1].owner === whoseTurn
+    ) {
+      return isContiguous(ri, ci + 1, "left");
+    } else if (
+      from !== "below" &&
+      ri !== 8 &&
+      board[ri + 1][ci].owner === whoseTurn
+    ) {
+      return isContiguous(ri + 1, ci, "above");
+    } else if (
+      from !== "left" &&
+      ci !== 0 &&
+      board[ri][ci - 1].owner === whoseTurn
+    ) {
+      return isContiguous(ri, ci - 1, "right");
     }
   };
   const switchPlayerTo = (which) => {
