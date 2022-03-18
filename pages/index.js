@@ -13,15 +13,15 @@ export default function Home() {
           owner: "",
         }))
     );
-  boardArr[2][2].checkers = 4;
+  boardArr[2][2].checkers = 3;
   boardArr[2][2].owner = "left";
-  boardArr[5][5].checkers = 4;
+  boardArr[5][5].checkers = 3;
   boardArr[5][5].owner = "right";
 
   // set up our template variables
   const [board, setBoard] = useState(boardArr);
-  const [leftCheckers, setLeftCheckers] = useState(20);
-  const [rightCheckers, setRightCheckers] = useState(20);
+  const [leftCheckers, setLeftCheckers] = useState(30);
+  const [rightCheckers, setRightCheckers] = useState(30);
   const [whoseTurn, setWhoseTurn] = useState("left");
   const [movesThisTurn, setMovesThisTurn] = useState(
     Array(8)
@@ -33,7 +33,7 @@ export default function Home() {
   const move = (row, column, rowDelta, columnDelta) => {
     const target = board[row + rowDelta][column + columnDelta];
     if (
-      target.checkers < 4 &&
+      target.checkers < 3 &&
       (!target.owner || target.owner === whoseTurn) &&
       board[row][column].checkers - movesThisTurn[row][column] > 0 &&
       !(
@@ -170,7 +170,7 @@ export default function Home() {
         if (
           !!square.owner &&
           square.owner !== whoseTurn &&
-          square.checkers < 4
+          square.checkers < 3
         ) {
           qualifyingSquares.push([ri, ci]);
         }
@@ -203,8 +203,6 @@ export default function Home() {
               })
             )
           );
-        } else {
-          // TODO: if we don't have enough, let the player choose which squares
         }
         setMovesThisTurn(
           Array(8)

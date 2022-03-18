@@ -13,7 +13,7 @@ body {
   flex-direction: column;
   height: 100vh;
   justify-content: center;
-  padding: 2vw;
+  padding: min(2vw, 2vh);
 }
 .left {
   color: #57f;
@@ -31,9 +31,9 @@ body {
 .board > div {
   border-bottom: 1px solid var(--board-border-color);
   border-left: 1px solid var(--board-border-color);
-  height: 8vw;
-  max-height: 8vh;
-  width: 8vw;
+  height: min(8vw, 8vh);
+  max-height: min(8vw, 8vh);
+  width: min(8vw, 8vh);
   position: relative;
 }
 .board > div:nth-child(19),
@@ -44,7 +44,7 @@ body {
   border-left: 2px solid #000;
 }
 .square {
-  font-size: 3.5vh;
+  font-size: min(3.5vw, 3.5vh);
   line-height: min(8vh, 8vw);
   text-align: center;
   cursor: default;
@@ -72,53 +72,53 @@ body {
 }
 .board > div.hoverable:hover .right,
 .board > div.hoverable:hover .left {
-  top: calc(50% - 1.5vw);
+  top: calc(50% - min(1.5vw, 1.5vh));
 }
 .board > div.hoverable:hover .up,
 .board > div.hoverable:hover .down {
-  left: calc(50% - 1.5vw);
+  left: calc(50% - min(1.5vw, 1.5vh));
 }
 .board > div.hoverable:hover .right {
-  right: 0.5vw;
-  border-left: 1.5vw solid #333;
-  border-top: 1.5vw solid transparent;
-  border-bottom: 1.5vw solid transparent;
+  right: min(0.5vw, 0.5vh);
+  border-left: min(1.5vw, 1.5vh) solid #333;
+  border-top: min(1.5vw, 1.5vh) solid transparent;
+  border-bottom: min(1.5vw, 1.5vh) solid transparent;
 }
 .board > div.hoverable:hover .left {
-  left: 0.5vw;
-  border-right: 1.5vw solid #333;
-  border-top: 1.5vw solid transparent;
-  border-bottom: 1.5vw solid transparent;
+  left: min(0.5vw, 0.5vh);
+  border-right: min(1.5vw, 1.5vh) solid #333;
+  border-top: min(1.5vw, 1.5vh) solid transparent;
+  border-bottom: min(1.5vw, 1.5vh) solid transparent;
 }
 .board > div.hoverable:hover .up {
-  top: 0.5vw;
-  border-bottom: 1.5vw solid #333;
-  border-left: 1.5vw solid transparent;
-  border-right: 1.5vw solid transparent;
+  top: min(0.5vw, 0.5vh);
+  border-bottom: min(1.5vw, 1.5vh) solid #333;
+  border-left: min(1.5vw, 1.5vh) solid transparent;
+  border-right: min(1.5vw, 1.5vh) solid transparent;
 }
 .board > div.hoverable:hover .down {
-  bottom: 0.5vw;
-  border-top: 1.5vw solid #333;
-  border-left: 1.5vw solid transparent;
-  border-right: 1.5vw solid transparent;
+  bottom: min(0.5vw, 0.5vh);
+  border-top: min(1.5vw, 1.5vh) solid #333;
+  border-left: min(1.5vw, 1.5vh) solid transparent;
+  border-right: min(1.5vw, 1.5vh) solid transparent;
 }
 .footer {
   display: flex;
-  width: 64vw;
-  padding: 2vw 0;
+  width: min(64vw, 64vh);
+  padding: min(2vw, 2vh) 0;
 }
 .checkers-left {
   flex-grow: 1;
-  font-size: 2vw;
-  line-height: 4vw;
+  font-size: min(2vw, 2vh);
+  line-height: min(4vw, 4vh);
   text-align: center;
 }
 .switch {
   cursor: pointer;
-  font-size: 2vw;
-  line-height: 4vw;
+  font-size: min(2vw, 2vh);
+  line-height: min(4vw, 4vh);
   background-color: #333;
-  padding: 0 2vw;
+  padding: 0 min(2vw, 2vh);
   color: #fff;
   position: relative;
 }
@@ -129,14 +129,14 @@ body {
   top: 0;
 }
 .switch.blue:after {
-  left: -2vw;
-  border-bottom: 2vw solid transparent;
-  border-top: 2vw solid transparent;
-  border-right: 2vw solid #333;
+  left: calc(-1 * min(2vw, 2vh));
+  border-bottom: min(2vw, 2vh) solid transparent;
+  border-top: min(2vw, 2vh) solid transparent;
+  border-right: min(2vw, 2vh) solid #333;
 }
 .switch.orange:after {
-  right: -2vw;
-  border-bottom: 2vw solid transparent;
-  border-top: 2vw solid transparent;
-  border-left: 2vw solid #333;
+  right: calc(-1 * min(2vw, 2vh));
+  border-bottom: min(2vw, 2vh) solid transparent;
+  border-top: min(2vw, 2vh) solid transparent;
+  border-left: min(2vw, 2vh) solid #333;
 }

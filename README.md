@@ -11,21 +11,18 @@ npm run dev
 
 ### Game Setup
 
-1. Each player starts with 24 checkers, so in this verson that's 24 blue and 24 orange checkers.
-2. Each player places a stack of 4 of their checkers in opposing corners of the inner 4x4 square of the board.
+1. Each player starts with 33 checkers of their color, different from their opponent.
+2. Each player places a stack of 3 of their checkers in opposing corners of the inner 4x4 square.
 3. Flip a coin to determine who goes first, then alternate turns until there is a winner.
 
 ### During Your Turn
 
-1. If you have checkers outside the board, add one of your checkers to each of your stacks with fewer than 4 checkers that are contiguous with your starting space.
-
-   - If you have more applicable stacks than checkers outside the board, you may select which of your stacks get checkers added.
-
+1. Count the number of squares with 1 or 2 (not 3) of your checkers. If this number is less than the number of checkers you have outside the board, add one checker to the top of each qualifying pile.
 2. Take as many actions as you wish/can, in any order:
 
    - Move a checker that has not yet moved during this turn to an adjacent...
      - empty space, or
-     - another of your stacks with fewer than 4 checkers.
+     - another of your stacks with fewer than 3 checkers.
    - Attack an opponent’s stack from an adjacent stack of yours: Flip a coin...
      - If heads, remove a checker from your opponent’s stack.
      - If tails, remove a checker from your own stack.
