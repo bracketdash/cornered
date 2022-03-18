@@ -31,9 +31,8 @@ body {
 .board > div {
   border-bottom: 1px solid var(--board-border-color);
   border-left: 1px solid var(--board-border-color);
-  height: min(8vw, 8vh);
-  max-height: min(8vw, 8vh);
-  width: min(8vw, 8vh);
+  height: min(10vw, 10vh);
+  width: min(10vw, 10vh);
   position: relative;
 }
 .board > div:nth-child(19),
@@ -45,7 +44,7 @@ body {
 }
 .square {
   font-size: min(3.5vw, 3.5vh);
-  line-height: min(8vh, 8vw);
+  line-height: min(10vh, 10vw);
   text-align: center;
   cursor: default;
 }
@@ -72,43 +71,43 @@ body {
 }
 .board > div.hoverable:hover .right,
 .board > div.hoverable:hover .left {
-  top: calc(50% - min(1.5vw, 1.5vh));
+  top: calc(50% - min(1.8vw, 1.8vh));
 }
 .board > div.hoverable:hover .up,
 .board > div.hoverable:hover .down {
-  left: calc(50% - min(1.5vw, 1.5vh));
+  left: calc(50% - min(1.8vw, 1.8vh));
 }
 .board > div.hoverable:hover .right {
   right: min(0.5vw, 0.5vh);
-  --border-size: min(1.5vw, 1.5vh);
+  --border-size: min(1.8vw, 1.8vh);
   border-left: var(--border-size) solid #333;
   border-top: var(--border-size) solid transparent;
   border-bottom: var(--border-size) solid transparent;
 }
 .board > div.hoverable:hover .left {
   left: min(0.5vw, 0.5vh);
-  --border-size: min(1.5vw, 1.5vh);
+  --border-size: min(1.8vw, 1.8vh);
   border-right: var(--border-size) solid #333;
   border-top: var(--border-size) solid transparent;
   border-bottom: var(--border-size) solid transparent;
 }
 .board > div.hoverable:hover .up {
   top: min(0.5vw, 0.5vh);
-  --border-size: min(1.5vw, 1.5vh);
+  --border-size: min(1.8vw, 1.8vh);
   border-bottom: var(--border-size) solid #333;
   border-left: var(--border-size) solid transparent;
   border-right: var(--border-size) solid transparent;
 }
 .board > div.hoverable:hover .down {
   bottom: min(0.5vw, 0.5vh);
-  --border-size: min(1.5vw, 1.5vh);
+  --border-size: min(1.8vw, 1.8vh);
   border-top: var(--border-size) solid #333;
   border-left: var(--border-size) solid transparent;
   border-right: var(--border-size) solid transparent;
 }
 .footer {
   display: flex;
-  width: min(64vw, 64vh);
+  width: min(80vw, 80vh);
   padding: min(2vw, 2vh) 0;
 }
 .checkers-left {
