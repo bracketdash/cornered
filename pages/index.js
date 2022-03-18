@@ -268,7 +268,7 @@ export default function Home() {
             switchPlayerTo(whoseTurn === "left" ? "right" : "left")
           }
         >
-          {whoseTurn === "left" ? "Blue" : "Orange"}'s turn
+          {whoseTurn === "left" ? "Blue" : "Orange"}&apos;s turn
         </div>
         <div className="checkers-left right">Orange: {rightCheckers}</div>
       </footer>

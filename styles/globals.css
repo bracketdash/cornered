@@ -80,27 +80,31 @@ body {
 }
 .board > div.hoverable:hover .right {
   right: min(0.5vw, 0.5vh);
-  border-left: min(1.5vw, 1.5vh) solid #333;
-  border-top: min(1.5vw, 1.5vh) solid transparent;
-  border-bottom: min(1.5vw, 1.5vh) solid transparent;
+  --border-size: min(1.5vw, 1.5vh);
+  border-left: var(--border-size) solid #333;
+  border-top: var(--border-size) solid transparent;
+  border-bottom: var(--border-size) solid transparent;
 }
 .board > div.hoverable:hover .left {
   left: min(0.5vw, 0.5vh);
-  border-right: min(1.5vw, 1.5vh) solid #333;
-  border-top: min(1.5vw, 1.5vh) solid transparent;
-  border-bottom: min(1.5vw, 1.5vh) solid transparent;
+  --border-size: min(1.5vw, 1.5vh);
+  border-right: var(--border-size) solid #333;
+  border-top: var(--border-size) solid transparent;
+  border-bottom: var(--border-size) solid transparent;
 }
 .board > div.hoverable:hover .up {
   top: min(0.5vw, 0.5vh);
-  border-bottom: min(1.5vw, 1.5vh) solid #333;
-  border-left: min(1.5vw, 1.5vh) solid transparent;
-  border-right: min(1.5vw, 1.5vh) solid transparent;
+  --border-size: min(1.5vw, 1.5vh);
+  border-bottom: var(--border-size) solid #333;
+  border-left: var(--border-size) solid transparent;
+  border-right: var(--border-size) solid transparent;
 }
 .board > div.hoverable:hover .down {
   bottom: min(0.5vw, 0.5vh);
-  border-top: min(1.5vw, 1.5vh) solid #333;
-  border-left: min(1.5vw, 1.5vh) solid transparent;
-  border-right: min(1.5vw, 1.5vh) solid transparent;
+  --border-size: min(1.5vw, 1.5vh);
+  border-top: var(--border-size) solid #333;
+  border-left: var(--border-size) solid transparent;
+  border-right: var(--border-size) solid transparent;
 }
 .footer {
   display: flex;
@@ -129,14 +133,16 @@ body {
   top: 0;
 }
 .switch.blue:after {
-  left: calc(-1 * min(2vw, 2vh));
-  border-bottom: min(2vw, 2vh) solid transparent;
-  border-top: min(2vw, 2vh) solid transparent;
-  border-right: min(2vw, 2vh) solid #333;
+  --border-size: min(2vw, 2vh);
+  left: calc(-1 * var(--border-size));
+  border-bottom: var(--border-size) solid transparent;
+  border-top: var(--border-size) solid transparent;
+  border-right: var(--border-size) solid #333;
 }
 .switch.orange:after {
-  right: calc(-1 * min(2vw, 2vh));
-  border-bottom: min(2vw, 2vh) solid transparent;
-  border-top: min(2vw, 2vh) solid transparent;
-  border-left: min(2vw, 2vh) solid #333;
+  --border-size: min(2vw, 2vh);
+  right: calc(-1 * var(--border-size));
+  border-bottom: var(--border-size) solid transparent;
+  border-top: var(--border-size) solid transparent;
+  border-left: var(--border-size) solid #333;
 }
