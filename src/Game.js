@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function App() {
+export default function Game() {
   // create the board
   const boardArr = Array(8)
     .fill(1)
@@ -271,5 +271,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
