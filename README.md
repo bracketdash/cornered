@@ -4,7 +4,7 @@ This is a game that can be played with ordinary checkers on a checkerboard, but 
 
 ```bash
 npm install
-npm run dev
+npm start
 ```
 
 ## Rules
