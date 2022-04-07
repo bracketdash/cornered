@@ -17,7 +17,7 @@ npm start
 
 ### During Your Turn
 
-1. Count the number of squares with between at least one but fewer than 5 of your checkers. If this number is less than the number of checkers you have outside the board, add one checker to the top of each qualifying pile.
+1. Count the number of squares with at least 1 but fewer than 5 of your checkers. If this number is less than the number of checkers you have outside the board, add 1 checker to the top of each qualifying pile.
 2. Take as many actions as you wish/can, in any order:
 
    - Move a checker that has not yet moved during this turn to an adjacent...
@@ -29,4 +29,4 @@ npm start
 
 ### Winning The Game
 
-The last player to maintain at least one of their checkers on their starting space wins.
+The last player to maintain at least 1 of their checkers on their starting space wins.
