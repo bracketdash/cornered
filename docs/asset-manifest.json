@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/cornered/static/css/main.1ac15652.css",
-    "main.js": "/cornered/static/js/main.1d8eeec8.js",
+    "main.js": "/cornered/static/js/main.e898f2d1.js",
     "index.html": "/cornered/index.html",
     "main.1ac15652.css.map": "/cornered/static/css/main.1ac15652.css.map",
-    "main.1d8eeec8.js.map": "/cornered/static/js/main.1d8eeec8.js.map"
+    "main.e898f2d1.js.map": "/cornered/static/js/main.e898f2d1.js.map"
   },
   "entrypoints": [
     "static/css/main.1ac15652.css",
-    "static/js/main.1d8eeec8.js"
+    "static/js/main.e898f2d1.js"
   ]
 }

@@ -68,9 +68,9 @@ export default function Game() {
       if (!Math.floor(Math.random() * 2)) {
         // target loses one
         if (whoseTurn === "left") {
-          setRightCheckers(rightCheckers + 1);
+          setRightCheckers((s) => s + 1);
         } else {
-          setLeftCheckers(leftCheckers + 1);
+          setLeftCheckers((s) => s + 1);
         }
         setBoard((state) =>
           state.map((columns, ri) =>
@@ -88,9 +88,9 @@ export default function Game() {
       } else {
         // origin loses one
         if (whoseTurn === "left") {
-          setLeftCheckers(leftCheckers + 1);
+          setLeftCheckers((s) => s + 1);
         } else {
-          setRightCheckers(rightCheckers + 1);
+          setRightCheckers((s) => s + 1);
         }
         setBoard((state) =>
           state.map((columns, ri) =>
@@ -106,6 +106,8 @@ export default function Game() {
           )
         );
       }
+    } else {
+      return;
     }
 
     // handle max moves per turn
