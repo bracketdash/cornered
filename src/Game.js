@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const MAX_MOVES_PER_TURN = 5;
 const MAX_PER_SQUARE = 5;
-const STARTING_CHECKERS = 50;
+const STARTING_CHECKERS = 45;
 
 export default function Game() {
   // create the board
