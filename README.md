@@ -18,11 +18,9 @@ npm start
 ### During Your Turn
 
 1. Count the number of squares with at least 1 but fewer than 5 of your checkers. If this number is less than the number of checkers you have outside the board, add 1 checker to the top of each qualifying pile.
-2. Take as many actions as you wish/can, in any order:
+2. Make up to 5 moves:
 
-   - Move a checker that has not yet moved during this turn to an adjacent...
-     - empty space, or
-     - another of your stacks with fewer than 5 checkers.
+   - Move a checker of yours to an adjacent empty space or another of your stacks with fewer than 5 checkers
    - Attack an opponent’s stack from an adjacent stack of yours: Flip a coin...
      - If heads, remove a checker from your opponent’s stack.
      - If tails, remove a checker from your own stack.

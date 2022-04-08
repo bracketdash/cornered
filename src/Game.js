@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-// const CHECKER_MAX_MOVES = 2;
+const MAX_MOVES_PER_TURN = 5;
 const MAX_PER_SQUARE = 5;
 const STARTING_CHECKERS = 50;
 
@@ -30,11 +30,7 @@ export default function Game() {
     STARTING_CHECKERS - MAX_PER_SQUARE
   );
   const [whoseTurn, setWhoseTurn] = useState("left");
-  const [movesThisTurn, setMovesThisTurn] = useState(
-    Array(8)
-      .fill(1)
-      .map(() => Array(8).fill(0))
-  );
+  const [moves, setMoves] = useState(MAX_MOVES_PER_TURN - 1);
 
   // handle moving and attacking
   const move = (row, column, rowDelta, columnDelta) => {
@@ -42,7 +38,6 @@ export default function Game() {
     if (
       target.checkers < MAX_PER_SQUARE &&
       (!target.owner || target.owner === whoseTurn) &&
-      board[row][column].checkers - movesThisTurn[row][column] > 0 &&
       !(
         board[row][column].checkers === 1 &&
         ((whoseTurn === "left" && row === 2 && column === 2) ||
@@ -50,17 +45,6 @@ export default function Game() {
       )
     ) {
       // just movin' pieces
-      // TODO: support CHECKER_MAX_MOVES
-      setMovesThisTurn((state) =>
-        state.map((columns, ri) =>
-          columns.map((moves, ci) => {
-            if (ri === row + rowDelta && ci === column + columnDelta) {
-              return moves + 1;
-            }
-            return moves;
-          })
-        )
-      );
       setBoard((state) =>
         state.map((columns, ri) =>
           columns.map((square, ci) => {
@@ -123,6 +107,14 @@ export default function Game() {
         );
       }
     }
+
+    // handle max moves per turn
+    if (!moves) {
+      setMoves(MAX_MOVES_PER_TURN - 1);
+      switchPlayerTo(whoseTurn === "left" ? "right" : "left");
+    } else {
+      setMoves(moves - 1);
+    }
   };
 
   // handle switching players
@@ -162,16 +154,10 @@ export default function Game() {
         )
       );
     }
-    setMovesThisTurn(
-      Array(8)
-        .fill(1)
-        .map(() => Array(8).fill(0))
-    );
     setWhoseTurn(which);
   };
 
   // the template
-  // TODO: hide arrows if no moves available
   const Cell = (props) => (
     <div
       className={`${props.square.owner}${
