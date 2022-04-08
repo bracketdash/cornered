@@ -43,7 +43,7 @@ body {
   border-left: 2px solid #000;
 }
 .square {
-  font-size: min(3.5vw, 3.5vh);
+  font-size: min(4vw, 4vh);
   line-height: min(10vh, 10vw);
   text-align: center;
   cursor: default;
@@ -112,7 +112,7 @@ body {
 }
 .checkers-left {
   flex-grow: 1;
-  font-size: min(2vw, 2vh);
+  font-size: min(3vw, 3vh);
   line-height: min(4vw, 4vh);
   text-align: center;
 }
@@ -120,10 +120,15 @@ body {
   cursor: pointer;
   font-size: min(2vw, 2vh);
   line-height: min(4vw, 4vh);
-  background-color: #333;
   padding: 0 min(2vw, 2vh);
   color: #fff;
   position: relative;
+}
+.switch.blue {
+  background-color: #57f;
+}
+.switch.orange {
+  background-color: #f74;
 }
 .switch.blue:after,
 .switch.orange:after {
@@ -136,12 +141,12 @@ body {
   left: calc(-1 * var(--border-size));
   border-bottom: var(--border-size) solid transparent;
   border-top: var(--border-size) solid transparent;
-  border-right: var(--border-size) solid #333;
+  border-right: var(--border-size) solid #57f;
 }
 .switch.orange:after {
   --border-size: min(2vw, 2vh);
   right: calc(-1 * var(--border-size));
   border-bottom: var(--border-size) solid transparent;
   border-top: var(--border-size) solid transparent;
-  border-left: var(--border-size) solid #333;
+  border-left: var(--border-size) solid #f74;
 }
