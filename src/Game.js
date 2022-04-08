@@ -110,7 +110,6 @@ export default function Game() {
 
     // handle max moves per turn
     if (!moves) {
-      setMoves(MAX_MOVES_PER_TURN - 1);
       switchPlayerTo(whoseTurn === "left" ? "right" : "left");
     } else {
       setMoves(moves - 1);
@@ -118,30 +117,31 @@ export default function Game() {
   };
 
   // handle switching players
-  const switchPlayerTo = (which) => {
+  const switchPlayerTo = async (which) => {
     let qualifyingSquares = [];
-    board.forEach((columns, ri) => {
-      columns.forEach((square, ci) => {
-        if (
-          !!square.owner &&
-          square.owner !== whoseTurn &&
-          square.checkers < MAX_PER_SQUARE
-        ) {
-          qualifyingSquares.push([ri, ci]);
-        }
+    setMoves(MAX_MOVES_PER_TURN - 1);
+    setBoard((board) => {
+      board.forEach((columns, ri) => {
+        columns.forEach((square, ci) => {
+          if (
+            !!square.owner &&
+            square.owner !== whoseTurn &&
+            square.checkers < MAX_PER_SQUARE
+          ) {
+            qualifyingSquares.push([ri, ci]);
+          }
+        });
       });
-    });
-    if (
-      (whoseTurn === "right" && qualifyingSquares.length <= leftCheckers) ||
-      (whoseTurn === "left" && qualifyingSquares.length <= rightCheckers)
-    ) {
-      if (whoseTurn === "right") {
-        setLeftCheckers(leftCheckers - qualifyingSquares.length);
-      } else {
-        setRightCheckers(rightCheckers - qualifyingSquares.length);
-      }
-      setBoard((state) =>
-        state.map((columns, ri) =>
+      if (
+        (whoseTurn === "right" && qualifyingSquares.length <= leftCheckers) ||
+        (whoseTurn === "left" && qualifyingSquares.length <= rightCheckers)
+      ) {
+        if (whoseTurn === "right") {
+          setLeftCheckers(leftCheckers - qualifyingSquares.length);
+        } else {
+          setRightCheckers(rightCheckers - qualifyingSquares.length);
+        }
+        board = board.map((columns, ri) =>
           columns.map((square, ci) => {
             if (qualifyingSquares.some((rc) => rc[0] === ri && rc[1] === ci)) {
               return {
@@ -151,10 +151,11 @@ export default function Game() {
             }
             return { ...square };
           })
-        )
-      );
-    }
-    setWhoseTurn(which);
+        );
+      }
+      setWhoseTurn(which);
+      return board;
+    });
   };
 
   // the template
@@ -199,7 +200,12 @@ export default function Game() {
       <main className="board">
         {board.map((columns, row) =>
           columns.map((square, column) => (
-            <Cell square={square} row={row} column={column} />
+            <Cell
+              square={square}
+              row={row}
+              column={column}
+              key={`${row}.${column}`}
+            />
           ))
         )}
       </main>
