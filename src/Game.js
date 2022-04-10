@@ -33,6 +33,7 @@ export default function Game() {
   const [moves, setMoves] = useState(MAX_MOVES_PER_TURN - 1);
 
   // handle moving and attacking
+  // TODO: update to match readme rules
   const move = (row, column, rowDelta, columnDelta) => {
     const target = board[row + rowDelta][column + columnDelta];
     if (
