@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const MAX_MOVES_PER_TURN = 5;
+const MAX_MOVES_PER_TURN = 4;
 const MAX_PER_SQUARE = 5;
 const STARTING_CHECKERS = 45;
 
@@ -32,32 +32,47 @@ export default function Game() {
   const [whoseTurn, setWhoseTurn] = useState("left");
   const [moves, setMoves] = useState(MAX_MOVES_PER_TURN - 1);
 
+  // handle battles
+  // TODO: make battles more fair (too heavily in favor of attacker right now)
+  const battle = (attacking, defending) => {
+    const roll = Math.ceil(Math.random() * 6);
+    const pairs = Math.min(attacking, defending);
+    const victors = Math.min(roll, pairs);
+    const attackersLost = victors < pairs ? pairs - victors : 0;
+    let attackingAfter = attacking - attackersLost;
+    let defendingAfter = defending - victors;
+    let occupied = defendingAfter === 0;
+    if (occupied) {
+      defendingAfter = attackingAfter - 1;
+      attackingAfter = 1;
+    }
+    return [attackingAfter, defendingAfter, occupied];
+  };
+
   // handle moving and attacking
-  // TODO: update to match readme rules
   const move = (row, column, rowDelta, columnDelta) => {
     const target = board[row + rowDelta][column + columnDelta];
     if (
       target.checkers < MAX_PER_SQUARE &&
-      (!target.owner || target.owner === whoseTurn) &&
-      !(
-        board[row][column].checkers === 1 &&
-        ((whoseTurn === "left" && row === 2 && column === 2) ||
-          (whoseTurn === "right" && row === 5 && column === 5))
-      )
+      (!target.owner || target.owner === whoseTurn)
     ) {
       // just movin' pieces
+      const moving = Math.min(
+        5 - target.checkers,
+        board[row][column].checkers - 1
+      );
       setBoard((state) =>
         state.map((columns, ri) =>
           columns.map((square, ci) => {
             if (ri === row + rowDelta && ci === column + columnDelta) {
               return {
-                checkers: square.checkers + 1,
+                checkers: square.checkers + moving,
                 owner: whoseTurn,
               };
             } else if (ri === row && ci === column) {
               return {
-                checkers: square.checkers - 1,
-                owner: square.checkers === 1 ? "" : whoseTurn,
+                checkers: square.checkers - moving,
+                owner: whoseTurn,
               };
             }
             return { ...square };
@@ -66,47 +81,33 @@ export default function Game() {
       );
     } else if (!!target.owner && target.owner !== whoseTurn) {
       // we're attacking!
-      if (!Math.floor(Math.random() * 2)) {
-        // target loses one
-        if (whoseTurn === "left") {
-          setRightCheckers((s) => s + 1);
-        } else {
-          setLeftCheckers((s) => s + 1);
-        }
-        setBoard((state) =>
-          state.map((columns, ri) =>
-            columns.map((square, ci) => {
-              if (ri === row + rowDelta && ci === column + columnDelta) {
-                return {
-                  checkers: square.checkers - 1,
-                  owner: square.checkers === 1 ? "" : square.owner,
-                };
-              }
-              return { ...square };
-            })
-          )
-        );
+      const outcome = battle(board[row][column].checkers, target.checkers);
+      console.log(outcome);
+      if (whoseTurn === "left") {
+        setLeftCheckers((s) => s + (board[row][column].checkers - outcome[0]));
+        setRightCheckers((s) => s + (target.checkers - outcome[1]));
       } else {
-        // origin loses one
-        if (whoseTurn === "left") {
-          setLeftCheckers((s) => s + 1);
-        } else {
-          setRightCheckers((s) => s + 1);
-        }
-        setBoard((state) =>
-          state.map((columns, ri) =>
-            columns.map((square, ci) => {
-              if (ri === row && ci === column) {
-                return {
-                  checkers: square.checkers - 1,
-                  owner: square.checkers === 1 ? "" : whoseTurn,
-                };
-              }
-              return { ...square };
-            })
-          )
-        );
+        setLeftCheckers((s) => s + (target.checkers - outcome[1]));
+        setRightCheckers((s) => s + (board[row][column].checkers - outcome[0]));
       }
+      setBoard((state) =>
+        state.map((columns, ri) =>
+          columns.map((square, ci) => {
+            if (ri === row + rowDelta && ci === column + columnDelta) {
+              return {
+                checkers: outcome[1],
+                owner: outcome[2] ? whoseTurn : square.owner,
+              };
+            } else if (ri === row && ci === column) {
+              return {
+                checkers: outcome[0],
+                owner: whoseTurn,
+              };
+            }
+            return { ...square };
+          })
+        )
+      );
     } else {
       return;
     }
@@ -162,16 +163,8 @@ export default function Game() {
   };
 
   // the template
-  const Cell = (props) => (
-    <div
-      className={`${props.square.owner}${
-        props.square.owner === whoseTurn ? " hoverable" : ""
-      }`}
-      key={`${props.row}.${props.column}`}
-    >
-      <div className="square">
-        {props.square.checkers ? props.square.checkers : ""}
-      </div>
+  const Arrows = (props) => (
+    <div>
       {props.row ? (
         <div
           className="up"
@@ -203,12 +196,19 @@ export default function Game() {
       <main className="board">
         {board.map((columns, row) =>
           columns.map((square, column) => (
-            <Cell
-              square={square}
-              row={row}
-              column={column}
+            <div
+              className={`${square.owner}${
+                square.owner === whoseTurn ? " hoverable" : ""
+              }`}
               key={`${row}.${column}`}
-            />
+            >
+              <div className="square">
+                {square.checkers ? square.checkers : ""}
+              </div>
+              {square.checkers && square.checkers > 1 ? (
+                <Arrows row={row} column={column} />
+              ) : null}
+            </div>
           ))
         )}
       </main>
