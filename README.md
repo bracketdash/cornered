@@ -13,9 +13,9 @@
 2. Make up to 5 moves:
 
    - Select a stack of at least 2 of your checkers and move to or attack an adjacent square:
-   - If the adjacent square is empty, move all but one of your checkers into the empty square.
-   - If the adjacent square has another stack of your checkers in it, move as many checkers as you can without exceeding 5 stacked checkers.
-   - If the adjacent square has a stack of your opponent's checkers in it, carry out a battle (see below).
+     - If the adjacent square is empty, move all but one of your checkers into the empty square.
+     - If the adjacent square has another stack of your checkers in it, move as many checkers as you can without exceeding 5 stacked checkers.
+     - If the adjacent square has a stack of your opponent's checkers in it, carry out a battle (see below).
 
 ### Battle
 
