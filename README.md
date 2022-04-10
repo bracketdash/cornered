@@ -17,9 +17,9 @@
 
 ### Battle
 
-1. Pair each attacking checker with a defending checker. Unpaired checkers are not participating in the battle.
-2. Roll a 6-sided dice. The number rolled is how many of the attacking pieces were victorious.
-3. Reduce your opponent's stack by the number rolled, not to exceed the number of paired checkers.
+1. Pair each attacking checker with a defending checker.
+2. Generate a random number between 1 and the number of pairs.
+3. Reduce your opponent's stack by this number.
 4. Reduce your own stack by the number of paired defending checkers that are left, if any.
 5. If your stack still has checkers but your opponent's does not, move all but 1 checker into the empty space.
 

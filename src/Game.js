@@ -33,10 +33,9 @@ export default function Game() {
   const [moves, setMoves] = useState(MAX_MOVES_PER_TURN - 1);
 
   // handle battles
-  // TODO: make battles more fair (too heavily in favor of attacker right now)
   const battle = (attacking, defending) => {
-    const roll = Math.ceil(Math.random() * 6);
     const pairs = Math.min(attacking, defending);
+    const roll = Math.ceil(Math.random() * pairs);
     const victors = Math.min(roll, pairs);
     const attackersLost = victors < pairs ? pairs - victors : 0;
     let attackingAfter = attacking - attackersLost;
@@ -82,7 +81,6 @@ export default function Game() {
     } else if (!!target.owner && target.owner !== whoseTurn) {
       // we're attacking!
       const outcome = battle(board[row][column].checkers, target.checkers);
-      console.log(outcome);
       if (whoseTurn === "left") {
         setLeftCheckers((s) => s + (board[row][column].checkers - outcome[0]));
         setRightCheckers((s) => s + (target.checkers - outcome[1]));
@@ -115,9 +113,24 @@ export default function Game() {
     // handle max moves per turn
     if (!moves) {
       switchPlayerTo(whoseTurn === "left" ? "right" : "left");
-    } else {
-      setMoves(moves - 1);
+      return;
     }
+    setBoard((state) => {
+      let atLeastOneMoveAvailable = false;
+      state.forEach((columns, ri) => {
+        columns.forEach((square, ci) => {
+          if (square.owner === whoseTurn && square.checkers > 1) {
+            atLeastOneMoveAvailable = true;
+          }
+        });
+      });
+      if (!atLeastOneMoveAvailable) {
+        switchPlayerTo(whoseTurn === "left" ? "right" : "left");
+      } else {
+        setMoves(moves - 1);
+      }
+      return state;
+    });
   };
 
   // handle switching players

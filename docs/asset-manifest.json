@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/cornered/static/css/main.1ac15652.css",
-    "main.js": "/cornered/static/js/main.e898f2d1.js",
+    "main.css": "/cornered/static/css/main.adad453a.css",
+    "main.js": "/cornered/static/js/main.49e90822.js",
     "index.html": "/cornered/index.html",
-    "main.1ac15652.css.map": "/cornered/static/css/main.1ac15652.css.map",
-    "main.e898f2d1.js.map": "/cornered/static/js/main.e898f2d1.js.map"
+    "main.adad453a.css.map": "/cornered/static/css/main.adad453a.css.map",
+    "main.49e90822.js.map": "/cornered/static/js/main.49e90822.js.map"
   },
   "entrypoints": [
-    "static/css/main.1ac15652.css",
-    "static/js/main.e898f2d1.js"
+    "static/css/main.adad453a.css",
+    "static/js/main.49e90822.js"
   ]
 }
